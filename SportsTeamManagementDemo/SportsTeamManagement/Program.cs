@@ -2,23 +2,24 @@ using FluentValidation;
 using SportsTeamManagementData.Data;
 using SportsTeamManagementData.Models;
 using SportsTeamManagementData.Repositories.Players;
+using SportsTeamManagementData.Repositories.Teams;
 using SportsTeamManagementData.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<IDbDataAccess, DbDataAccess>();
+builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+
+//validations
+builder.Services.AddScoped<IValidator<Player>, PlayerValidator>();
+builder.Services.AddScoped<IValidator<Team>, TeamValidator>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddSingleton<IDbDataAccess, DbDataAccess>();
-
-builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
-
-//validations
-builder.Services.AddScoped<IValidator<Player>, PlayerValidator>();
 
 var app = builder.Build();
 
