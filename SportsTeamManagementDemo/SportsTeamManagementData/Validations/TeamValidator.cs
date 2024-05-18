@@ -20,14 +20,14 @@ namespace SportsTeamManagementData.Validations
             RuleFor(x => x.City)
                 .NotEmpty().WithMessage("El nombre de la ciudad es obligatorio ingresarla")
                 .MinimumLength(5).WithMessage("Debe contener minimo 5 letras")
-                .MaximumLength(100).WithMessage("Solo se permite un maximo de 100 caracteres");
-            //.Matches("^[a-zA-Z ]+$").WithMessage("La ciudad solo puede contener letras y espacios.");
+                .MaximumLength(100).WithMessage("Solo se permite un maximo de 100 caracteres")
+                .Matches("^[a-zA-Z ]+$").WithMessage("La ciudad solo puede contener letras y espacios.");
 
             RuleFor(x => x.Coach)
                 .NotEmpty().WithMessage("El nombre del entrenador es obligatorio ingresarlo")
                 .MinimumLength(5).WithMessage("Debe contener minimo 5 letras")
-                .MaximumLength(100).WithMessage("Solo se permite un maximo de 100 caracteres");
-               // .Matches("^[a-zA-Z ]+$").WithMessage("Solo se permite ingresar letras");
+                .MaximumLength(100).WithMessage("Solo se permite un maximo de 100 caracteres")
+                .Matches("^[a-zA-Z ]+$").WithMessage("Solo se permite ingresar letras");
 
             RuleFor(x => x.DisciplineID)
                 .NotEmpty().WithMessage("El Id de la disciplina es obligatorio ingresarlo");
