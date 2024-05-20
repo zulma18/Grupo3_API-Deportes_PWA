@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FluentValidation;
+using SportsTeamManagementData.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SportsTeamManagementData.Validations
 {
-    public class Sport_DisciplineValidator
+    public class Sport_DisciplineValidator : AbstractValidator<SportDiscipline>
     {
         public Sport_DisciplineValidator()
         {

@@ -14,14 +14,15 @@ namespace SportsTeamManagement.Controllers
     public class Sport_DisciplineController : ControllerBase
     {
         private readonly ISport_DisciplineRepository _sport_disciplineRepository;
-        private readonly IValidator<Sport_DisciplineController> _validator;
+        private readonly IValidator<SportDiscipline> _validator;
 
-        public Sport_DisciplineController(ISport_DisciplineRepository sport_disciplineRepository, IValidator<Sport_DisciplineController> validator)
+        public Sport_DisciplineController(ISport_DisciplineRepository sport_disciplineRepository, IValidator<SportDiscipline> validator)
         {
             _sport_disciplineRepository = sport_disciplineRepository;
             _validator = validator;
         }
 
+        // GET: api/<Sport_DisciplineController>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -43,35 +44,34 @@ namespace SportsTeamManagement.Controllers
         }
 
         // POST api/<Sport_DisciplineController>
-        // GET: api/<Sport_DisciplineController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Sport_DisciplineController sport_Discipline)
+        public async Task<IActionResult> Post([FromBody] SportDiscipline sportDiscipline)
         {
-            ValidationResult validationResult = await _validator.ValidateAsync(sport_Discipline);
+            ValidationResult validationResult = await _validator.ValidateAsync(sportDiscipline);
 
             if (!validationResult.IsValid)
                 return UnprocessableEntity(validationResult);
 
-            await _sport_disciplineRepository.AddSport_DisciplineAsync(sport_Discipline);
+            await _sport_disciplineRepository.AddSport_DisciplineAsync(sportDiscipline);
 
             return Created();
         }
 
         // PUT api/<Sport_DisciplineController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Sport_DisciplineController sport_Discipline)
+        public async Task<IActionResult> Put(int id, [FromBody] SportDiscipline sportDiscipline)
         {
             var sport_disciplineEditable = await _sport_disciplineRepository.GetSport_DisciplineByIdAsync(id);
 
             if (sport_disciplineEditable == null)
                 return NotFound();
 
-            ValidationResult validationResult = await _validator.ValidateAsync(sport_Discipline);
+            ValidationResult validationResult = await _validator.ValidateAsync(sportDiscipline);
 
             if (!validationResult.IsValid)
                 return UnprocessableEntity(validationResult);
 
-            await _sport_disciplineRepository.EditSport_DisciplineAsync(sport_Discipline);
+            await _sport_disciplineRepository.EditSport_DisciplineAsync(sportDiscipline);
 
             return Accepted();
         }
@@ -80,9 +80,19 @@ namespace SportsTeamManagement.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _sport_disciplineRepository.DeleteSport_DisciplineAsync(id);
+            try
+            {
+                await _sport_disciplineRepository.DeleteSport_DisciplineAsync(id);
 
-            return Ok();
+                return Ok();
+
+            }
+            catch (Exception)
+            {
+                string errorMessage = "No se puede eliminar la disciplina deportiva";
+
+                return StatusCode(500, new { message = errorMessage });
+            }
         }
     }
 }

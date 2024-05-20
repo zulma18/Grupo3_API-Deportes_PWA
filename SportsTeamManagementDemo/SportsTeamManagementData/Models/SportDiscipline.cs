@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SportsTeamManagementData.Models
 {
-    public class Sport_Discipline
+    public class SportDiscipline
         {
            public int Id { get; set; }
 

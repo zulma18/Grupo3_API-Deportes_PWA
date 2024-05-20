@@ -80,9 +80,21 @@ namespace SportsTeamManagement.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _teamRepository.DeleteTeamAsync(id);  
+            try
+            {
+                await _teamRepository.DeleteTeamAsync(id);
 
-            return Ok();
+                return Ok();
+
+            }
+            catch (Exception)
+            {
+                string errorMessage = "No se puede eliminar el equipo";
+
+                return StatusCode(500, new { message = errorMessage });
+            }
+
+
             
         }
     }

@@ -18,7 +18,7 @@ builder.Services.AddScoped<ISport_DisciplineRepository, Sport_DisciplineReposito
 //validations
 builder.Services.AddScoped<IValidator<Player>, PlayerValidator>();
 builder.Services.AddScoped<IValidator<Team>, TeamValidator>();
-builder.Services.AddScoped<IValidator<Sport_DisciplineController>, Sport_DisciplineValidator>();
+builder.Services.AddScoped<IValidator<SportDiscipline>, Sport_DisciplineValidator>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
